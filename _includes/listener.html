@@ -1,5 +1,7 @@
 <script type = "application/javascript">
 
+var FUDGE = 0.8; //(how far towards bottom right corner)
+
 var elementsOfInterest = [
   {
     id : "path3427_3_",
@@ -11,15 +13,26 @@ function attachHandlerTo({id, name}){
   console.log(id,name)
   var element = document.getElementById(id)
   if(null!== element){
-      element.addEventListener("mouseover",getlistenerFor(name))
+      element.addEventListener("mouseover",getListenerFor(name))
+      element.addEventListener("click",getListenerFor(name))
+      var svgElem = d3.select("#"+id);
+      var boundingBox = svgElem.node().getBBox()
+      console.log(boundingBox)
+      d3.select("svg")
+      .append("circle")
+      .style("fill","red")
+      .attr("r",3)
+      .attr("cx",boundingBox.x+boundingBox.width*FUDGE)
+      .attr("cy",boundingBox.y+boundingBox.height*FUDGE)
+
   } else {
     console.error("I couldn't find",name,"using",id,"... Sad")
   }
 }
 
-function getlistenerFor(name){
+function getListenerFor(name){
   return ()=>{
-    alert("You are over "+name)
+    //alert("You are over "+name)
   }
 }
 
