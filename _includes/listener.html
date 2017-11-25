@@ -28,6 +28,7 @@ function attachHandlerTo({id, name}){
       .attr("r",CIRCLE_RADIUS)
       .attr("cx",boundingBox.x+boundingBox.width*FUDGE)
       .attr("cy",boundingBox.y+boundingBox.height*FUDGE)
+      .attr("opacity","0.8")
       .on("mouseover",getListenerFor(name))
 
 
