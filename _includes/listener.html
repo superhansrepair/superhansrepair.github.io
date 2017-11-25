@@ -1,9 +1,17 @@
 <script type = "application/javascript">
 
+var FUDGE = 0.8; //(how far towards bottom right corner)
+var CIRCLE_RADIUS = 3 //(this is the ... you know, radius, of the circle)
+var COLOUR = "red" // (circle colour)
+
 var elementsOfInterest = [
   {
     id : "path3427_3_",
-    name : "Front Left Wheel"
+    name : "front left wheel"
+  },
+  {
+    id : "path3267_3_",
+    name : "wing mirror"
   }
 ]
 
@@ -11,13 +19,24 @@ function attachHandlerTo({id, name}){
   console.log(id,name)
   var element = document.getElementById(id)
   if(null!== element){
-      element.addEventListener("mouseover",getlistenerFor(name))
+      var svgElem = d3.select("#"+id);
+      var boundingBox = svgElem.node().getBBox()
+
+      d3.select("svg")
+      .append("circle")
+      .style("fill",COLOUR)
+      .attr("r",CIRCLE_RADIUS)
+      .attr("cx",boundingBox.x+boundingBox.width*FUDGE)
+      .attr("cy",boundingBox.y+boundingBox.height*FUDGE)
+      .on("mouseover",getListenerFor(name))
+
+
   } else {
     console.error("I couldn't find",name,"using",id,"... Sad")
   }
 }
 
-function getlistenerFor(name){
+function getListenerFor(name){
   return ()=>{
     alert("You are over "+name)
   }
