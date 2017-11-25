@@ -1,0 +1,30 @@
+<script type = "application/javascript">
+
+var elementsOfInterest = [
+  {
+    id : "path3427_3_",
+    name : "Front Left Wheel"
+  }
+]
+
+function attachHandlerTo({id, name}){
+  console.log(id,name)
+  var element = document.getElementById(id)
+  if(null!== element){
+      element.addEventListener("mouseover",getlistenerFor(name))
+  } else {
+    console.error("I couldn't find",name,"using",id,"... Sad")
+  }
+}
+
+function getlistenerFor(name){
+  return ()=>{
+    alert("You are over "+name)
+  }
+}
+
+elementsOfInterest.forEach((element)=>{
+  attachHandlerTo(element)
+})
+
+</script>
