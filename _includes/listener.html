@@ -54,6 +54,7 @@ function attachHandlerTo({id, name}){
 
       var over = getListener(true,{circle});
       var out = getListener(false,{circle});
+      var click = getClickListener();
 
       circle
       .on("mouseover",over)
@@ -80,6 +81,14 @@ function getListener(over,bits){
     .attr("opacity",OPACITY)
  })
 }
+
+function getClickListener() {
+  $('#card1').click(function() {
+    $(this).toggleClass('scale-out');
+    $('#info_menu').toggleClass('scale-out');
+  });
+}
+
 
 elementsOfInterest.forEach((element)=>{
   attachHandlerTo(element)
