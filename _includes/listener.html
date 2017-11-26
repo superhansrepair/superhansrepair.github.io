@@ -54,12 +54,11 @@ function attachHandlerTo({id, name}){
 
       var over = getListener(true,{circle});
       var out = getListener(false,{circle});
-      var click = getClickListener();
 
       circle
       .on("mouseover",over)
       .on("mouseout",out)
-      .on("click",click)
+      .on("click",over)
 
   } else {
     console.error("I couldn't find",name,"using",id,"... Sad")
@@ -81,14 +80,6 @@ function getListener(over,bits){
     .attr("opacity",OPACITY)
  })
 }
-
-function getClickListener() {
-  $('#card1').click(function() {
-    $(this).toggleClass('scale-out');
-    $('#info_menu').toggleClass('scale-out');
-  });
-}
-
 
 elementsOfInterest.forEach((element)=>{
   attachHandlerTo(element)
