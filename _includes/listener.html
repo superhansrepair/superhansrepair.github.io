@@ -52,10 +52,27 @@ function attachHandlerTo({id, name}){
       .attr("r",ANIMATION_RADIUS)
       .attr("opacity",0)
 
-      var over = getListener(true,{circle});
-      var out = getListener(false,{circle});
+      var plus = additions
+      .append("text")
+      .attr("class","plusSign")
+      .style("fill","white")
+      .attr("text-anchor","middle")
+      .attr("font-size","0.3em")
+      .attr("dy","0.3em")
+      .attr("opacity",0)
+      .text("+")
+      .attr("transform","rotate("+900+")")
+
+
+      var over = getListener(true,{circle,plus});
+      var out = getListener(false,{circle,plus});
 
       circle
+      .on("mouseover",over)
+      .on("mouseout",out)
+      .on("click",over)
+
+      plus
       .on("mouseover",over)
       .on("mouseout",out)
       .on("click",over)
@@ -92,8 +109,16 @@ function entryAnimation(){
     .transition()
     .duration(750)
     .ease(d3.easeLinear)
-    .attr("opacity",1)
+    .attr("opacity",OPACITY)
     .attr("r",NORMAL_RADIUS)
+
+    d3.selectAll(".plusSign")
+    .transition()
+    .duration(750)
+    .ease(d3.easeLinear)
+    .attr("opacity",1)
+    .attr("transform","rotate("+0+")")
+
     d3.select("svg")
     .on("mousemove",()=>{})
   }
