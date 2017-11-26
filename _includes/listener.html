@@ -1,17 +1,29 @@
 <script type = "application/javascript">
 
 var FUDGE = 0.8; //(how far towards bottom right corner)
-var CIRCLE_RADIUS = 3 //(this is the ... you know, radius, of the circle)
+var ANIMATION_RADIUS = 9 //(this is the animation start radius)
+var NORMAL_RADIUS = 3 //(this is the ... you know, radius, of the circle)
+var OVER_RADIUS = 4 //(during hover)
 var COLOUR = "red" // (circle colour)
+var OPACITY = 0.6 // (how solid the circle fill is)
+var ENTRY_ANIMATION //tracks to see if in progress
 
 var elementsOfInterest = [
   {
     id : "path3427_3_",
-    name : "front left wheel"
+    name : "wheel"
   },
   {
     id : "path3267_3_",
-    name : "wing mirror"
+    name : "wing-mirror"
+  },
+  {
+    id : "path4289_3_",
+    name : "exhaust"
+  },
+  {
+    id : "path3486_8_",
+    name : "headlight"
   }
 ]
 
@@ -19,32 +31,72 @@ function attachHandlerTo({id, name}){
   console.log(id,name)
   var element = document.getElementById(id)
   if(null!== element){
-      var svgElem = d3.select("#"+id);
-      var boundingBox = svgElem.node().getBBox()
 
-      d3.select("svg")
+      var svg = d3.select("svg")
+      svg.on("mousemove",entryAnimation)
+
+      var part = d3.select("#"+id);
+      var boundingBox = part.node().getBBox()
+
+      var additions = svg
+      .append("g")
+      .attr("transform", "translate("+
+        (boundingBox.x+boundingBox.width*FUDGE)+","+
+        (boundingBox.y+boundingBox.height*FUDGE)+")"
+      )
+
+      var circle = additions
       .append("circle")
+      .attr("class","circleOfInterest")
       .style("fill",COLOUR)
-      .attr("r",CIRCLE_RADIUS)
-      .attr("cx",boundingBox.x+boundingBox.width*FUDGE)
-      .attr("cy",boundingBox.y+boundingBox.height*FUDGE)
-      .attr("opacity","0.8")
-      .on("mouseover",getListenerFor(name))
+      .attr("r",ANIMATION_RADIUS)
+      .attr("opacity",0)
 
+      var over = getListener(true,{circle});
+      var out = getListener(false,{circle});
+
+      circle
+      .on("mouseover",over)
+      .on("mouseout",out)
+      .on("click",over)
 
   } else {
     console.error("I couldn't find",name,"using",id,"... Sad")
   }
 }
 
-function getListenerFor(name){
-  return ()=>{
-    alert("You are over "+name)
-  }
+function getListener(over,bits){
+  return (over ?
+  function (){
+    bits.circle
+    .attr("r",OVER_RADIUS)
+    .attr("opacity",1)
+  } :
+  function (){
+    bits.circle
+    .transition()
+    .duration(500)
+    .attr("r",3)
+    .attr("opacity",OPACITY)
+ })
 }
 
 elementsOfInterest.forEach((element)=>{
   attachHandlerTo(element)
 })
+
+function entryAnimation(){
+  if(!ENTRY_ANIMATION){
+    ENTRY_ANIMATION = true
+    d3.selectAll(".circleOfInterest")
+    .transition()
+    .duration(750)
+    .ease(d3.easeLinear)
+    .attr("opacity",1)
+    .attr("r",NORMAL_RADIUS)
+    d3.select("svg")
+    .on("mousemove",()=>{})
+  }
+}
 
 </script>
