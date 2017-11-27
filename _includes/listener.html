@@ -7,6 +7,7 @@ var OVER_RADIUS = 4 //(during hover)
 var COLOUR = "red" // (circle colour)
 var OPACITY = 0.6 // (how solid the circle fill is)
 var ENTRY_ANIMATION //tracks to see if in progress
+var ENTRY_TIMEOUT = 2000 //in milliseconds
 
 var elementsOfInterest = [
   {
@@ -34,6 +35,9 @@ function attachHandlerTo({id, name}){
       //Register animation trigger
       var body = d3.select("body")
       body.on("mousemove",entryAnimation)
+
+      //Set a timeout in case they don't move their mousemove
+      setTimeout(entryAnimation,ENTRY_TIMEOUT)
 
       //Find superhans
       var svg = d3.select("svg")
