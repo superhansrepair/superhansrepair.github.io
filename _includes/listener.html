@@ -63,16 +63,10 @@ function attachHandlerTo({id, name}){
       .text("+")
       .attr("transform","rotate("+900+")")
 
-
       var over = getListener(true,{circle,plus});
       var out = getListener(false,{circle,plus});
 
       circle
-      .on("mouseover",over)
-      .on("mouseout",out)
-      .on("click",over)
-
-      plus
       .on("mouseover",over)
       .on("mouseout",out)
       .on("click",over)
