@@ -6,7 +6,8 @@ var ANIMATION_RADIUS = 20 //(this is the animation start radius)
 var NORMAL_RADIUS = 3 //(standard radius)
 var OVER_RADIUS = 4 //(during hover)
 var COLOUR = "red" // (circle colour)
-var OPACITY = 0.6 // (how solid the circle fill is)
+var OPACITY = 0.3 // (how solid the circle fill is)
+var FILL_OPACITY = 0.8 // (how solid the circle fill is)
 var ENTRY_ANIMATION //tracks to see if in progress
 var ENTRY_TIMEOUT = 2000 //in milliseconds
 
@@ -104,7 +105,7 @@ function getOverListener(over,bits){
   function (){
     bits.circle
     .attr("r",OVER_RADIUS)
-    .attr("opacity",1)
+    .attr("opacity",FILL_OPACITY)
 
     bits.drawnPart
     .classed("outlinePart",true)
@@ -135,7 +136,7 @@ function entryAnimation(){
     .transition()
     .duration(750)
     .ease(d3.easeLinear)
-    .attr("opacity",1)
+    .attr("opacity",FILL_OPACITY)
     .attr("transform","rotate("+0+") scale(1,1)")
 
     d3.select("svg")
