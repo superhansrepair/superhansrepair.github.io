@@ -1,3 +1,4 @@
+
 <script type = "application/javascript">
 
 var FUDGE = 0.8; //(how far towards bottom right corner of the part do we draw the circle)
@@ -10,26 +11,15 @@ var ENTRY_ANIMATION //tracks to see if in progress
 var ENTRY_TIMEOUT = 2000 //in milliseconds
 
 var elementsOfInterest = [
+  {% for item in site.parts %}
   {
-    id : "path3427_3_",
-    name : "wheel"
+    id: "{{item.svg}}",
+    part: "{{item.part}}"
   },
-  {
-    id : "path3267_3_",
-    name : "wing-mirror"
-  },
-  {
-    id : "path4289_3_",
-    name : "exhaust"
-  },
-  {
-    id : "path3486_8_",
-    name : "headlight"
-  }
+  {% endfor %}
 ]
 
-function attachHandlerTo({id, name}){
-  console.log(id,name)
+function attachHandlerTo({id, part}){
   var element = document.getElementById(id)
   if(null!== element){
       //Register animation trigger
@@ -43,8 +33,8 @@ function attachHandlerTo({id, name}){
       var svg = d3.select("svg")
 
       //Find the referenced "part" and extent
-      var part = d3.select("#"+id);
-      var boundingBox = part.node().getBBox()
+      var drawnPart = d3.select("#"+id);
+      var boundingBox = drawnPart.node().getBBox()
 
       //Create a bounding group to move our circle and + to
       var additions = svg
@@ -72,7 +62,7 @@ function attachHandlerTo({id, name}){
       .attr("dy","0.3em")
       .attr("opacity",0)
       .text("+")
-      .attr("transform","rotate("+900+")")
+      .attr("transform","rotate("+180+")")
 
       //Append a transparent box to capture mouse over event
       var mouseCatcher = additions
@@ -86,7 +76,7 @@ function attachHandlerTo({id, name}){
 
       var over = getOverListener(true,{circle,plus});
       var out = getOverListener(false,{circle,plus});
-      var click = getClickListener(name)
+      var click = getClickListener(part)
 
       mouseCatcher
       .on("mouseover",over)
@@ -94,21 +84,20 @@ function attachHandlerTo({id, name}){
       .on("click",click)
 
   } else {
-    console.error("I couldn't find",name,"using",id,"... Sad")
+    console.error("I couldn't find",part,"using",id,"... Sad")
   }
 }
 
-function getClickListener(name){
+function getClickListener(part){
   if(!handleClickFor || typeof handleClickFor !== 'function'){
     console.log("There's no click handler 'handleClickFor' declared in scripts. Sad")
     return ()=>{}
   } else {
     return ()=>{
-      handleClickFor(name)
+      handleClickFor(part)
     }
   }
 }
-
 
 function getOverListener(over,bits){
   return (over ?
@@ -125,10 +114,6 @@ function getOverListener(over,bits){
     .attr("opacity",OPACITY)
  })
 }
-
-elementsOfInterest.forEach((element)=>{
-  attachHandlerTo(element)
-})
 
 function entryAnimation(){
   if(!ENTRY_ANIMATION){
@@ -151,5 +136,10 @@ function entryAnimation(){
     .on("mousemove",()=>{})
   }
 }
+
+elementsOfInterest.forEach((element)=>{
+  attachHandlerTo(element)
+})
+
 
 </script>

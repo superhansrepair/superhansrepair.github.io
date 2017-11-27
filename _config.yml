@@ -1,0 +1,4 @@
+collections:
+  parts:
+    output: true
+    permalink: /:collection/:name
