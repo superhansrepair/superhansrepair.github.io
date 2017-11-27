@@ -25,6 +25,12 @@
        }
      );
 
+     //Register global click handler
+     var handleClickFor = function(name){
+       $('#card1').toggleClass('scale-out');
+       $('#info_menu').toggleClass('scale-out');
+     }
+
      <!-- Info button onclick -->
      $('#info_menu').click(function() {
        $(this).toggleClass('scale-out');

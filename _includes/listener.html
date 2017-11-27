@@ -1,8 +1,8 @@
 <script type = "application/javascript">
 
-var FUDGE = 0.8; //(how far towards bottom right corner)
-var ANIMATION_RADIUS = 9 //(this is the animation start radius)
-var NORMAL_RADIUS = 3 //(this is the ... you know, radius, of the circle)
+var FUDGE = 0.8; //(how far towards bottom right corner of the part do we draw the circle)
+var ANIMATION_RADIUS = 20 //(this is the animation start radius)
+var NORMAL_RADIUS = 3 //(standard radius)
 var OVER_RADIUS = 4 //(during hover)
 var COLOUR = "red" // (circle colour)
 var OPACITY = 0.6 // (how solid the circle fill is)
@@ -31,13 +31,18 @@ function attachHandlerTo({id, name}){
   console.log(id,name)
   var element = document.getElementById(id)
   if(null!== element){
+      //Register animation trigger
+      var body = d3.select("body")
+      body.on("mousemove",entryAnimation)
 
+      //Find superhans
       var svg = d3.select("svg")
-      svg.on("mousemove",entryAnimation)
 
+      //Find the referenced "part" and extent
       var part = d3.select("#"+id);
       var boundingBox = part.node().getBBox()
 
+      //Create a bounding group to move our circle and + to
       var additions = svg
       .append("g")
       .attr("transform", "translate("+
@@ -45,6 +50,7 @@ function attachHandlerTo({id, name}){
         (boundingBox.y+boundingBox.height*FUDGE)+")"
       )
 
+      //Add the circle
       var circle = additions
       .append("circle")
       .attr("class","circleOfInterest")
@@ -52,6 +58,7 @@ function attachHandlerTo({id, name}){
       .attr("r",ANIMATION_RADIUS)
       .attr("opacity",0)
 
+      //Add the plus sign
       var plus = additions
       .append("text")
       .attr("class","plusSign")
@@ -63,20 +70,43 @@ function attachHandlerTo({id, name}){
       .text("+")
       .attr("transform","rotate("+900+")")
 
-      var over = getListener(true,{circle,plus});
-      var out = getListener(false,{circle,plus});
+      //Append a transparent box to capture mouse over event
+      var mouseCatcher = additions
+      .append("rect")
+      .attr("x",-OVER_RADIUS)
+      .attr("y",-OVER_RADIUS)
+      .attr("width",2*OVER_RADIUS)
+      .attr("height",2*OVER_RADIUS)
+      .attr("opacity",0)
+      .style("cursor","pointer")
 
-      circle
+      var over = getOverListener(true,{circle,plus});
+      var out = getOverListener(false,{circle,plus});
+      var click = getClickListener(name)
+
+      mouseCatcher
       .on("mouseover",over)
       .on("mouseout",out)
-      .on("click",over)
+      .on("click",click)
 
   } else {
     console.error("I couldn't find",name,"using",id,"... Sad")
   }
 }
 
-function getListener(over,bits){
+function getClickListener(name){
+  if(!handleClickFor || typeof handleClickFor !== 'function'){
+    console.log("There's no click handler 'handleClickFor' declared in scripts. Sad")
+    return ()=>{}
+  } else {
+    return ()=>{
+      handleClickFor(name)
+    }
+  }
+}
+
+
+function getOverListener(over,bits){
   return (over ?
   function (){
     bits.circle
@@ -86,7 +116,7 @@ function getListener(over,bits){
   function (){
     bits.circle
     .transition()
-    .duration(500)
+    .duration(250)
     .attr("r",3)
     .attr("opacity",OPACITY)
  })
