@@ -48,22 +48,22 @@ function attachHandlerTo({id, part}){
       var circle = additions
       .append("circle")
       .attr("class","circleOfInterest")
-      .style("fill",COLOUR)
       .attr("r",ANIMATION_RADIUS)
       .attr("opacity",0)
+      .style("fill",COLOUR)
 
       //Add the plus sign
       var plus = additions
       .append("text")
       .attr("class","plusSign")
-      .style("fill","white")
       .attr("text-anchor","middle")
       .attr("font-size","0.3em")
       .attr("dy","0.3em")
       .attr("opacity",0)
+      .attr("transform","rotate("+180+") scale("+(ANIMATION_RADIUS/NORMAL_RADIUS)+","+(ANIMATION_RADIUS/NORMAL_RADIUS)+")")
+      .style("fill","white")
       .text("+")
-      .attr("transform","rotate("+180+")")
-
+      
       //Append a transparent box to capture mouse over event
       var mouseCatcher = additions
       .append("rect")
@@ -130,7 +130,7 @@ function entryAnimation(){
     .duration(750)
     .ease(d3.easeLinear)
     .attr("opacity",1)
-    .attr("transform","rotate("+0+")")
+    .attr("transform","rotate("+0+") scale(1,1)")
 
     d3.select("svg")
     .on("mousemove",()=>{})
