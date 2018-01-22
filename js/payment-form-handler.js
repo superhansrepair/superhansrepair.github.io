@@ -57,7 +57,7 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
                   console.log(success)
               },
               (failure)=>{
-                  $scope.outcome = failure
+                  $scope.outcome = failure.data
                   $scope.idem = Math.random()+Date.now()
               }
           )
