@@ -32,7 +32,26 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
   
   //define the form handler
   $scope.paymentFormSubmit = function(){
-    console.log($scope);
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Inform the customer that there was an error
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          //build the submission
+          var payment = {
+            mode:GLOBAL.stripeMode,
+            name:$scope.name,
+            email:$scope.email,
+            description:$scope.description,
+            idem:$scope.idem,
+            amount:$scope.amount  
+          }
+          console.log(payment);
+          // Attempt payment
+          $http.post("https://pay.superhans.repair")
+        }
+      });
   }
   
   window.scope = $scope
