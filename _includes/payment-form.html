@@ -3,23 +3,23 @@
 <div class="row center white" ng-app = "paymentApp">
   <form class="col s12" name = "paymentForm" ng-controller = "paymentFormController" ng-submit = "paymentFormSubmit">
     <div class="row">
-        <input id="description" type="hidden" name = "description" ng-value = "description">
-        <input id="idem" type = "hidden" name = "idem" ng-value = "idem">
+        <input id="description" type="hidden" name = "description" ng-model = "description">
+        <input id="idem" type = "hidden" name = "idem" ng-model = "idem">
         <h4>I'd like to help repair the {{page.title}}</h4>
     </div>
     <div class="row">
       <div class="input-field col s5">
-        <input placeholder="Jane Bloggs" id="name" type="text" name = "name" ng-value = "name" class="validate" required>
+        <input placeholder="Jane Bloggs" id="name" type="text" name = "name" ng-model = "name" class="validate" required>
         <label for="name" class = "active">Your name</label>
         <span ng-show="paymentForm.name.$touched && paymentForm.name.$invalid">Is it Rumplestiltskin?</span>
       </div>
       <div class="input-field col s5">
-        <input placeholder="Email (for receipt)" id="email" type="email" name = "email" ng-value = "email" class="validate">
+        <input placeholder="Email (for receipt)" id="email" type="email" name = "email" ng-model = "email" class="validate">
         <label for="email" class = "active">Email address</label>
         <span ng-show="paymentForm.email.$touched && paymentForm.email.$invalid">Only if you want a receipt</span>
       </div>
       <div class="input-field col s2">
-        <input placeholder="0.00" id="amount" type="number" min="0.01" step="0.01" max="2500" name = "amount" ng-value = "amount" class="validate" required>
+        <input placeholder="0.00" id="amount" type="number" min="0.01" step="0.01" max="2500" name = "amount" ng-model = "amount" class="validate" required>
         <label for="amount" class = "active">Amount (£)</label>
         <span ng-show="paymentForm.amount.$touched && paymentForm.amount.$invalid">Just numbers please</span>
       </div>
