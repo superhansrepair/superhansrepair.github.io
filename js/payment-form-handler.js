@@ -36,10 +36,15 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
   
   //define the form handler
   $scope.paymentFormSubmit = function(){
+      //try... to avoid double submit and hide previous errors
       $scope.disableSubmit = true;
+      $scope.showOutcome = false;
+      $scope.outcome = ""
+      
+      
       stripe.createToken(card).then(function(result) {
         if (result.error) {
-          // Inform the customer that there was an error
+          // Stripe hates you
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
           $scope.disableSubmit = false;
@@ -59,7 +64,7 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
           $http.post("https://pay.superhans.repair/makepayment",payment)
           .then(
               (success)=>{
-                  $scope.outcome = "Thank you very much!"
+                  $scope.outcome = GLOBAL.successText
                   $scope.showOutcome = true;
               },
               (failure)=>{
