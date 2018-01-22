@@ -32,7 +32,7 @@
       <input class="btn waves-effect waves-light" type="submit" value = "Pay" ng-disabled="disableSubmit">
     </div>
     <div class = "row">
-      {{showOutcome}}{{outcome}}
+      {(showOutcome)}{(outcome)}
       <h5 ng-if = "showOutcome" class = "col s12" ng-value = "outcome"></h5>
     </div>
   </form>
