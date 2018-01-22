@@ -75,7 +75,7 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
             email:$scope.email,
             description:$scope.description,
             idem:$scope.idem,
-            amount:100*$scope.amount,
+            amount:parseInt(100*$scope.amount),
             source:result.token.id
           }
           console.log(payment);
