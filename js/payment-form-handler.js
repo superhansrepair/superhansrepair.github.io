@@ -53,11 +53,11 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
           $http.post("https://pay.superhans.repair/makepayment",payment)
           .then(
               (success)=>{
-                  $scope.successMessage = "Thank you very much!"
+                  $scope.outcome = "Thank you very much!"
                   console.log(success)
               },
               (failure)=>{
-                  $scope.failureMessage = failure
+                  $scope.outcome = failure
                   $scope.idem = Math.random()+Date.now()
               }
           )
