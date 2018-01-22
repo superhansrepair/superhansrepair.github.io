@@ -23,8 +23,6 @@ card.addEventListener('change', function(event) {
 //angular form controller
 var paymentsApp = angular.module('paymentApp',[]);
 paymentsApp.controller('paymentFormController',['$scope','$http',function($scope,$http){
-  //stripe keys - choose which one we want in Jekyll _config.yaml
-  
   
   //bind and idempotency key and description to the form
   $scope.idem = Math.random() + Date.now();
@@ -32,11 +30,13 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
   
   //define the form handler
   $scope.paymentFormSubmit = function(){
+      $scope.disableSubmit = true;
       stripe.createToken(card).then(function(result) {
         if (result.error) {
           // Inform the customer that there was an error
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
+          $scope.disableSubmit = false;
         } else {
           //build the submission
           var payment = {
@@ -54,10 +54,13 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
           .then(
               (success)=>{
                   $scope.outcome = "Thank you very much!"
-                  console.log(success)
+                  $scope.showOutcome = true;
               },
               (failure)=>{
                   $scope.outcome = failure.data
+                  $scope.showOutcome = true
+                  $scope.disableSubmit = false;
+                  //allow another go on failure
                   $scope.idem = Math.random()+Date.now()
               }
           )
