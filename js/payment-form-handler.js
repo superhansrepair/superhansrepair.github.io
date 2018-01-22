@@ -78,7 +78,6 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
             amount:parseInt(100*$scope.amount),
             source:result.token.id
           }
-          console.log(payment);
           // Attempt payment
           $http.post("https://pay.superhans.repair/makepayment",payment)
           .then(
@@ -94,7 +93,4 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
         }
       });
   }
-
-  window.scope = $scope
-
 }])
