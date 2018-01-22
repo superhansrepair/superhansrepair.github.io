@@ -1,7 +1,7 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <div class="row center white" ng-app = "paymentApp">
-  <form class="col s12" name = "paymentForm" ng-controller = "paymentFormController" ng-submit = "paymentFormSubmit">
+  <form class="col s12" name = "paymentForm" ng-controller = "paymentFormController" ng-submit = "paymentFormSubmit()">
     <div class="row">
         <input id="description" type="hidden" name = "description" ng-model = "description">
         <input id="idem" type = "hidden" name = "idem" ng-model = "idem">
