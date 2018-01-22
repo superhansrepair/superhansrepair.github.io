@@ -45,7 +45,7 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
             email:$scope.email,
             description:$scope.description,
             idem:$scope.idem,
-            amount:$scope.amount,
+            amount:100*$scope.amount,
             source:result.token.id
           }
           console.log(payment);
@@ -57,7 +57,8 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
                   console.log(success)
               },
               (failure)=>{
-                  $scope.failureMessage = "Sorry, that didn't work"
+                  $scope.failureMessage = failure
+                  $scope.idem = Math.random()+Date.now()
               }
           )
         }
