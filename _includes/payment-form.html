@@ -8,28 +8,30 @@
         <h4>I'd like to help repair the {{page.title}}</h4>
     </div>
     <div class="row">
-      <div class="input-field col s5">
+      <div class="input-field col s12 m5">
         <input placeholder="Jane Bloggs" id="name" type="text" name = "name" ng-model = "name" class="validate" required>
         <label for="name" class = "active">Your name</label>
-        <span ng-show="paymentForm.name.$touched && paymentForm.name.$invalid">Is it Rumplestiltskin?</span>
+        <span ng-show="paymentForm.name.$touched && paymentForm.name.$invalid"><small>A form needs a name</small></span>
       </div>
-      <div class="input-field col s5">
+      <div class="input-field col s12 m5">
         <input placeholder="Email (for receipt)" id="email" type="email" name = "email" ng-model = "email" class="validate">
         <label for="email" class = "active">Email address</label>
-        <span ng-show="paymentForm.email.$touched && paymentForm.email.$invalid">Only if you want a receipt</span>
+        <span ng-show="paymentForm.email.$touched && paymentForm.email.$invalid"><small>That doesn't look like an email address</small></span>
       </div>
-      <div class="input-field col s2">
+      <div class="input-field col s12 m2">
         <input placeholder="0.00" id="amount" type="number" min="0.01" step="0.01" max="2500" name = "amount" ng-model = "amount" class="validate" required>
         <label for="amount" class = "active">Amount (£)</label>
-        <span ng-show="paymentForm.amount.$touched && paymentForm.amount.$invalid">Just numbers please</span>
+        <span ng-show="paymentForm.amount.$touched && paymentForm.amount.$invalid"><small>In pounds (and pence) please</small></span>
       </div>
     </div>
     <div class = "row">
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <div id="card-element" class="field is-empty"></div>
         <div id="card-errors"></div>
       </div>
-      <input class="btn waves-effect waves-light" type="submit" value = "Pay" ng-disabled="disableSubmit">
+      <div class="input-field col s12 m6">
+        <input class="btn waves-effect waves-light" type="submit" value = "{(payMessage)}" ng-disabled="disableSubmit">
+      </div>
     </div>
     <div class = "row">
       <h5 ng-if = "showOutcome" class = "col s12">{(outcome)}</h5>
