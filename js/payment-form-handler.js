@@ -30,6 +30,10 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
   $scope.idem = Math.random() + Date.now();
   $scope.description = GLOBAL.description;
   
+  //define the form handler
+  $scope.paymentFormSubmit = function(){
+    console.log($scope);
+  }
   
   window.scope = $scope
   
