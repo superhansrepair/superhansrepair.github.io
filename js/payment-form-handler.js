@@ -49,7 +49,16 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
           }
           console.log(payment);
           // Attempt payment
-          $http.post("https://pay.superhans.repair/makePayment")
+          $http.post("https://pay.superhans.repair/makepayment",payment)
+          .then(
+              (success)=>{
+                  $scope.successMessage = "Thank you very much!"
+                  console.log(success)
+              },
+              (failure)=>{
+                  $scope.failureMessage = "Sorry, that didn't work"
+              }
+          )
         }
       });
   }
