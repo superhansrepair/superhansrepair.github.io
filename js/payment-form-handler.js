@@ -9,7 +9,7 @@ console.log("Found Stripe Mode:",GLOBAL.stripeMode)
 //initialise stripe
 var stripe = Stripe(stripeKeys[GLOBAL.stripeMode]);
 var elements = stripe.elements();
-var card = elements.create('card', {style: style});
+var card = elements.create('card');
 card.mount('#card-element');
 card.addEventListener('change', function(event) {
   var displayError = document.getElementById('card-errors');
