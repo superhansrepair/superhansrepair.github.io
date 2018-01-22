@@ -45,7 +45,8 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
             email:$scope.email,
             description:$scope.description,
             idem:$scope.idem,
-            amount:$scope.amount  
+            amount:$scope.amount,
+            source:result.token
           }
           console.log(payment);
           // Attempt payment
