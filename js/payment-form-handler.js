@@ -33,17 +33,16 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
   //bind and idempotency key and description to the form
   $scope.idem = Math.random() + Date.now();
   $scope.description = GLOBAL.description;
-  $scope.payMessage = "Pay";
+  $scope.paid = false;
 
   function start(){
     $scope.disableSubmit = true;
-    $scope.payMessage = "Paying...";
     $scope.outcome = "";
     $scope.showOutcome = false;
   }
   function ok(message){
     $scope.disableSubmit = true;
-    $scope.payMessage = "Paid"
+    $scope.paid = true;
     $scope.outcome = message
     $scope.showOutcome = true;
   }
@@ -78,7 +77,6 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
             amount:parseInt(100*$scope.amount),
             source:result.token.id
           }
-          console.log(payment);
           // Attempt payment
           $http.post("https://pay.superhans.repair/makepayment",payment)
           .then(
@@ -94,7 +92,4 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
         }
       });
   }
-
-  window.scope = $scope
-
 }])
