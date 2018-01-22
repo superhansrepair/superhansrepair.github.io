@@ -22,6 +22,12 @@ card.addEventListener('change', function(event) {
 
 //angular form controller
 var paymentsApp = angular.module('paymentApp',[]);
+paymentsApp.config([
+  '$interpolateProvider', function($interpolateProvider) {
+    return $interpolateProvider.startSymbol('{(').endSymbol(')}');
+  }
+]);
+
 paymentsApp.controller('paymentFormController',['$scope','$http',function($scope,$http){
   
   //bind and idempotency key and description to the form
