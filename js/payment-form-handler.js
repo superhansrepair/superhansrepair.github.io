@@ -58,14 +58,13 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
       //try... to avoid double submit and hide previous errors
       if($scope.disableSubmit){return console.log("Double submit avoided")}
       start()
-
-
+      
       stripe.createToken(card).then(function(result) {
         if (result.error) {
           // Stripe hates you
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
-          allowRetry("There was an error processing the card");
+          $scope.apply(allowRetry("I don't this that card is valid"));
         } else {
           //build the submission
           var payment = {
