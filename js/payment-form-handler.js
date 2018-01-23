@@ -64,7 +64,7 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
           // Stripe hates you
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
-          $scope.$apply(allowRetry("I don't this that card is valid"));
+          $scope.$apply(allowRetry("I don't think that card is valid"));
         } else {
           //build the submission
           var payment = {
