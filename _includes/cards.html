@@ -1,16 +1,12 @@
-<div class="row">
-    <div class="col s12 m6">
-      {% for item in site.parts %}
-      <div id="{{item.part}}" class="card modal row scale-transition scale-out">
-            <div class="card-image">
-              <img src="{{item.image}}">
-              <a href="{{item.url | absolute_url}}" class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add_shopping_cart</i></a>
-            </div>
-            <div class="card-content">
-              <span class="card-title">{{item.title}}</span>
-              <p>{{item.blurb}}</p>
-            </div>
-      </div>
-      {% endfor %}
-    </div>
+{% for item in site.parts %}
+<div id="{{item.part}}" class="card modal scale-transition scale-out">
+  <div class="card-image">
+    <img src="{{item.image}}">
+    <a href="{{item.url | absolute_url}}" class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add_shopping_cart</i></a>
+  </div>
+  <div class="card-content">
+    <span class="card-title">{{item.title}}</span>
+    <p>{{item.blurb}}</p>
+  </div>
 </div>
+{% endfor %}
