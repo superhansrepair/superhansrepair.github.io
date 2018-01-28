@@ -42,7 +42,9 @@
             </div>
           </div>
         </form>
-        <h4 ng-if = "showOutcome" class = "col s12">{(outcome)}</h4>
+        <div class="row" ng-if="showOutcome">
+          <h4 class="col s12">{(outcome)}</h4>
+        </div>
       </div>
     </div>
   </div>
@@ -55,4 +57,5 @@
   GLOBAL.stripeMode = "{{site.stripeMode}}"
   GLOBAL.successText = "{{site.successText}}"
 </script>
+
 <script src="/js/payment-form-handler.js" type="text/javascript"></script>
