@@ -19,7 +19,6 @@ var card = elements.create('card', {
       fontWeight: 300,
       fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
       fontSize: '19px',
-      padding-top: '10px',
 
       '::placeholder': {
         color: '#8898AA',
