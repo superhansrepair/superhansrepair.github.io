@@ -19,14 +19,15 @@ var card = elements.create('card', {
       fontWeight: 300,
       fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
       fontSize: '19px',
+      padding-top: '10px',
 
       '::placeholder': {
         color: '#8898AA',
       },
     },
     invalid: {
-      iconColor: '#e85746',
-      color: '#e85746',
+      iconColor: '#ff0000',
+      color: '#ff0000',
     }
   },
   classes: {
