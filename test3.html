@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>
+
+  <body class="valign-wrapper" style="background:url('./images/Hills.png') no-repeat; background-size:cover;">
+
+      <div class="container">
+
+        <div class="row valign-wrapper">
+          <div class="col s12 m9 offset-m2">
+            <div class="card white center">
+              <div class="card-content">
+                <form name = "paymentForm" ng-submit = "paymentFormSubmit()" ng-hide = "paid">
+                  <div class="row">
+                      <input id="description" type="hidden" name = "description" ng-model = "description">
+                      <input id="idem" type = "hidden" name = "idem" ng-model = "idem">
+                      <h4>I'd like to help repair the <strong>{{page.title | downcase}}</strong></h4>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m10 offset-m1">
+                      <input placeholder="Jane Bloggs" id="name" type="text" name = "name" ng-model = "name" class="validate" required>
+                      <label for="name" class = "active">Your name</label>
+                      <span ng-show="paymentForm.name.$touched && paymentForm.name.$invalid"><small>A form needs a name</small></span>
+                  </div>
+                  <div class="input-field col s12 m10 offset-m1">
+                    <input placeholder="Email (for receipt)" id="email" type="email" name = "email" ng-model = "email" class="validate">
+                    <label for="email" class = "active">Email address</label>
+                    <span ng-show="paymentForm.email.$touched && paymentForm.email.$invalid"><small>That doesn't look like an email address</small></span>
+                  </div>
+                  <div class="input-field col s12 m6 offset-m1">
+                    <input placeholder="0.00" id="amount" type="number" min="0.01" step="0.01" max="2500" name = "amount" ng-model = "amount" class="validate" required>
+                    <label for="amount" class = "active">Amount (£)</label>
+                    <span ng-show="paymentForm.amount.$touched && paymentForm.amount.$invalid"><small>In pounds (and pence) please</small></span>
+                  </div>
+                </div>
+                <div class = "row">
+                  <div class="input-field col s12 m6">
+                    <div id="card-element" class="field is-empty"></div>
+                    <div id="card-errors"></div>
+                  </div>
+                </div>
+                </form>
+                </div>
+
+              <div class="card-action center">
+                <button class="btn red darken-4 waves-effect waves-light" type="submit" ng-disabled = "disableSubmit">Make payment</button>
+              </div>
+
+              <h4 ng-if = "showOutcome" class = "col s12">{(outcome)}</h4>
+
+            </div>
+          </div>
+        </div>
+</div>
+
+
+        <script type = "text/javascript">
+          //use this to bind the description, test/live into Angular
+          var GLOBAL = {};
+          GLOBAL.description = "{{page.title}}"
+          GLOBAL.stripeMode = "{{site.stripeMode}}"
+          GLOBAL.successText = "{{site.successText}}"
+        </script>
+        <script src="/js/payment-form-handler.js" type="text/javascript"></script>
+
+
+
+
+
+
+    <!--Scripts-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+  </body>
+</html>
