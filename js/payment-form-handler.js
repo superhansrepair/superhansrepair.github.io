@@ -9,7 +9,31 @@ console.log("Found Stripe Mode:",GLOBAL.stripeMode)
 //initialise stripe
 var stripe = Stripe(stripeKeys[GLOBAL.stripeMode]);
 var elements = stripe.elements();
-var card = elements.create('card');
+var card = elements.create('card', {
+  iconStyle: 'solid',
+  style: {
+    base: {
+      iconColor: '#8898AA',
+      //color: 'white',
+      lineHeight: '36px',
+      fontWeight: 300,
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSize: '19px',
+
+      '::placeholder': {
+        color: '#8898AA',
+      },
+    },
+    invalid: {
+      iconColor: '#e85746',
+      color: '#e85746',
+    }
+  },
+  classes: {
+    focus: 'is-focused',
+    empty: 'is-empty',
+  },
+});
 card.mount('#card-element');
 card.addEventListener('change', function(event) {
   var displayError = document.getElementById('card-errors');
