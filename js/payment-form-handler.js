@@ -15,10 +15,9 @@ var card = elements.create('card', {
     base: {
       iconColor: '#8898AA',
       //color: 'white',
-      lineHeight: '36px',
       fontWeight: 300,
       fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-      fontSize: '19px',
+      fontSize: '16px',
 
       '::placeholder': {
         color: '#8898AA',
