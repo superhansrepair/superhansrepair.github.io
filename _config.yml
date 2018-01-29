@@ -2,5 +2,5 @@ collections:
   parts:
     output: true
     permalink: /:collection/:name
-stripeMode: "test"
+stripeMode: "live"
 successText: "Thank you so much!"
