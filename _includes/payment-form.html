@@ -41,8 +41,12 @@
             </div>
           </div>
         </form>
-        <div class="row" ng-if="showOutcome">
-          <h4 class="col s12">{(outcome)}</h4>
+        <div class="row" ng-if="showSuccess">
+          <h4 class="col s12">{(successMessage)}</h4>
+          <div class="center"><a href="/test-rb.html"><img src="/images/respray.jpg" style="padding-top:20px; width:30%"></a></div>
+        </div>
+        <div class="row" ng-if="showFailure">
+          <h4 class="col s12">{(failureMessage)}</h4>
           <div class="center"><a href="/test-rb.html"><img src="/images/respray.jpg" style="padding-top:20px; width:30%"></a></div>
         </div>
       </div>
