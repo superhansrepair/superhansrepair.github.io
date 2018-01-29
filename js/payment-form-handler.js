@@ -77,7 +77,7 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
     $scope.failureMessage = message
     $scope.showFailure = true;
   }
-
+  window.scope = $scope;
   //define the form handler
   $scope.paymentFormSubmit = function(){
       //try... to avoid double submit and hide previous errors
