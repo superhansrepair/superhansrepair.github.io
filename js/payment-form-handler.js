@@ -64,19 +64,19 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
     $scope.successMessage = "";
     $scope.showSuccess = false;
     $scope.failureMessage = "";
-  }
+  };
   function ok(message){
     $scope.disableSubmit = true;
     $scope.paid = true;
-    $scope.successMessage = message
+    $scope.successMessage = message;
     $scope.showSuccess= true;
-  }
+  };
   function allowRetry(message){
     $scope.disableSubmit = false;
-    $scope.payMessage = "Retry"
-    $scope.failureMessage = message
+    $scope.payMessage = "Retry";
+    $scope.failureMessage = message;
     $scope.showFailure = true;
-  }
+  };
   window.scope = $scope;
   //define the form handler
   $scope.paymentFormSubmit = function(){
