@@ -59,7 +59,6 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
 
   function start(){
     $scope.disableSubmit = true;
-    $scope.outcome = "";
     $scope.showFailure = false;
     $scope.successMessage = "";
     $scope.showSuccess = false;
@@ -73,7 +72,6 @@ paymentsApp.controller('paymentFormController',['$scope','$http',function($scope
   };
   function allowRetry(message){
     $scope.disableSubmit = false;
-    $scope.payMessage = "Retry";
     $scope.failureMessage = message;
     $scope.showFailure = true;
   };
